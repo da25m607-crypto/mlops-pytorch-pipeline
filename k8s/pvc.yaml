@@ -1,0 +1,28 @@
+# Not explicitly listed in the assignment's file tree, but required by
+# Part D ("Uses a PersistentVolumeClaim for /app/data and /app/checkpoints")
+# and Part E ("Mounts the checkpoint PVC"). Kept as a separate manifest so
+# it can be applied once and reused by both the training Job and the
+# serving Deployment.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dataset-pvc
+  namespace: ml-training
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: checkpoint-pvc
+  namespace: ml-training
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

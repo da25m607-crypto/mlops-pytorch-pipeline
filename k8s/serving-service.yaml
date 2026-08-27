@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-serving
+  namespace: ml-training
+spec:
+  type: ClusterIP
+  selector:
+    app: model-serving
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+# For a cloud-managed cluster, change `type` to LoadBalancer to get an
+# external IP instead of using `kubectl port-forward`.

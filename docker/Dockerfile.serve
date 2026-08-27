@@ -1,0 +1,37 @@
+# syntax=docker/dockerfile:1
+
+# ---- Stage 1: dependency builder ----
+FROM python:3.11-slim AS base
+WORKDIR /app
+
+RUN pip install --no-cache-dir --upgrade pip
+
+# Only inference dependencies are installed here (no tensorboard, no
+# training-only extras) to keep the serving image small and its attack
+# surface minimal.
+COPY requirements/serve.txt .
+RUN pip install --no-cache-dir -r serve.txt
+
+# ---- Stage 2: serving runtime ----
+FROM base AS serving
+
+COPY src/model.py src/dataset.py src/serve.py ./src/
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    CHECKPOINT_PATH=/app/checkpoints/classifier_v1.pt
+
+RUN mkdir -p /app/checkpoints \
+    && groupadd --system appgroup \
+    && useradd --system --gid appgroup --home-dir /app --shell /usr/sbin/nologin appuser \
+    && chown -R appuser:appgroup /app
+
+USER appuser
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=10s --timeout=3s --start-period=15s --retries=3 \
+    CMD python -c "import urllib.request,sys; sys.exit(0) if urllib.request.urlopen('http://localhost:8080/health', timeout=2).status == 200 else sys.exit(1)"
+
+WORKDIR /app/src
+CMD ["uvicorn", "serve:app", "--host", "0.0.0.0", "--port", "8080"]

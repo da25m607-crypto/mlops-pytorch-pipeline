@@ -1,0 +1,30 @@
+# syntax=docker/dockerfile:1
+
+# ---- Stage 1: dependency builder ----
+# Isolating dependency installation in its own stage means Docker only
+# re-runs pip install when requirements/train.txt changes, not on every
+# source-code edit.
+FROM python:3.11-slim AS base
+WORKDIR /app
+
+RUN pip install --no-cache-dir --upgrade pip
+
+COPY requirements/train.txt .
+RUN pip install --no-cache-dir -r train.txt
+
+# ---- Stage 2: training runtime ----
+FROM base AS training
+
+COPY src/ ./src/
+COPY configs/ ./configs/
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    TRAINING_CONFIG=/app/configs/training_config.yaml
+
+# /app/data and /app/checkpoints are meant to be mounted (docker -v, or a
+# PVC in Kubernetes) so datasets and checkpoints persist outside the image.
+RUN mkdir -p /app/data /app/checkpoints
+
+WORKDIR /app/src
+ENTRYPOINT ["python", "train.py"]
