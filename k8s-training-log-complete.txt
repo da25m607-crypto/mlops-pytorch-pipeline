@@ -1,0 +1,12 @@
+﻿{"event": "config_loaded", "path": "/app/configs/training_config.yaml"}
+{"event": "device_selected", "device": "cpu"}
+Files already downloaded and verified
+Files already downloaded and verified
+{"epoch": 1, "train_loss": 1.3647, "train_accuracy": 0.5044, "val_loss": 1.0136, "val_accuracy": 0.6453}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 2, "train_loss": 0.8842, "train_accuracy": 0.6867, "val_loss": 0.8481, "val_accuracy": 0.7103}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 3, "train_loss": 0.6945, "train_accuracy": 0.7595, "val_loss": 0.7179, "val_accuracy": 0.7567}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"event": "training_complete", "best_val_loss": 0.7179}
+
