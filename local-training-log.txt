@@ -1,0 +1,23 @@
+{"event": "config_loaded", "path": "/app/configs/training_config.yaml"}
+{"event": "device_selected", "device": "cpu"}
+Files already downloaded and verified
+Files already downloaded and verified
+{"epoch": 1, "train_loss": 1.3554, "train_accuracy": 0.5063, "val_loss": 1.1577, "val_accuracy": 0.5924}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 2, "train_loss": 0.8873, "train_accuracy": 0.6882, "val_loss": 0.8303, "val_accuracy": 0.7159}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 3, "train_loss": 0.6921, "train_accuracy": 0.7574, "val_loss": 0.7609, "val_accuracy": 0.7489}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 4, "train_loss": 0.5819, "train_accuracy": 0.8005, "val_loss": 0.7251, "val_accuracy": 0.7643}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 5, "train_loss": 0.5087, "train_accuracy": 0.8249, "val_loss": 0.5281, "val_accuracy": 0.8193}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 6, "train_loss": 0.4447, "train_accuracy": 0.8459, "val_loss": 0.4548, "val_accuracy": 0.845}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 7, "train_loss": 0.4019, "train_accuracy": 0.8615, "val_loss": 0.4989, "val_accuracy": 0.8383}
+{"epoch": 8, "train_loss": 0.368, "train_accuracy": 0.8711, "val_loss": 0.4367, "val_accuracy": 0.8562}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 9, "train_loss": 0.331, "train_accuracy": 0.8863, "val_loss": 0.4002, "val_accuracy": 0.87}
+{"event": "checkpoint_saved", "path": "/app/checkpoints/classifier_v1.pt"}
+{"epoch": 10, "train_loss": 0.3024, "train_accuracy": 0.8961, "val_loss": 0.4134, "val_accuracy": 0.8631}
+{"event": "training_complete", "best_val_loss": 0.4002}

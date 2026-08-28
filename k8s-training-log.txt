@@ -1,0 +1,4 @@
+{"event": "config_loaded", "path": "/app/configs/training_config.yaml"}
+{"event": "device_selected", "device": "cpu"}
+Files already downloaded and verified
+Files already downloaded and verified
