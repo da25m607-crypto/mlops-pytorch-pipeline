@@ -1,0 +1,19 @@
+﻿NAME                                READY   STATUS    RESTARTS   AGE
+pod/model-serving-df8f69898-s8zhp   1/1     Running   0          9m32s
+pod/model-serving-df8f69898-zww7p   1/1     Running   0          9m32s
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/model-serving   ClusterIP   10.110.64.227   <none>        80/TCP    9m23s
+
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/model-serving   2/2     2            2           9m33s
+
+NAME                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/model-serving-df8f69898   2         2         2       9m33s
+
+NAME                                                    REFERENCE                  TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/model-serving-hpa   Deployment/model-serving   cpu: <unknown>/70%   2         5         2          86s
+{"status":"ok"}
+{"status":"ok"}
+{"predictions":[{"class":"airplane","probability":1.0},{"class":"automobile","probability":0.0},{"class":"bird","probability":0.0},{"class":"cat","probability":0.0},{"class":"deer","probability":0.0},{"class":"dog","probability":0.0},{"class":"frog","probability":0.0},{"class":"horse","probability":0.0},{"class":"ship","probability":0.0},{"class":"truck","probability":0.0}],"top_class":"airplane"}
+

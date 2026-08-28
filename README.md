@@ -1,7 +1,13 @@
 # mlops-pytorch-pipeline
 
-**MLOps & Infrastructure for Machine Learning — Assignment 3**
-*(Deploying PyTorch ML Workloads with Docker & Kubernetes)*
+**MLOps \& Infrastructure for Machine Learning — Assignment 3**
+*(Deploying PyTorch ML Workloads with Docker \& Kubernetes)*
+
+
+
+*\*\*Repository:\*\* https://github.com/da25m607-crypto/mlops-pytorch-pipeline*
+
+
 
 A production-style pipeline that takes a PyTorch image classifier from local
 development to containerized training (Docker) to orchestrated training and
@@ -11,7 +17,7 @@ serving (Kubernetes).
 
 ```
                         ┌─────────────────────────┐
-                        │   configs/training_      │
+                        │   configs/training\_      │
                         │   config.yaml             │
                         └───────────┬──────────────┘
                                     │ mounted via ConfigMap
@@ -25,7 +31,7 @@ serving (Kubernetes).
                                                                                         ▼
 ┌───────────────┐   docker build   ┌───────────────────┐   kubectl apply   ┌─────────────────────┐
 │ src/serve.py   │ ───────────────▶│ mlops-serve:v1      │ ──────────────▶ │  Deployment (2 pods) │
-│ src/model.py   │  Dockerfile.serve│ (serving image)    │  serving-*.yaml   │  + Service (:80)     │
+│ src/model.py   │  Dockerfile.serve│ (serving image)    │  serving-\*.yaml   │  + Service (:80)     │
 │ src/dataset.py │                 └───────────────────┘                   │  + HPA (2-5 pods)     │
 └───────────────┘                                                          └──────────┬───────────┘
                                                                                         │
@@ -47,19 +53,19 @@ mlops-pytorch-pipeline/
 ├── .gitignore
 ├── .github/workflows/ci.yml
 ├── src/               # train.py, model.py, dataset.py, serve.py
-├── configs/           # training_config.yaml
+├── configs/           # training\_config.yaml
 ├── docker/            # Dockerfile.train, Dockerfile.serve
 ├── k8s/               # namespace, configmap, pvc, training-job,
 │                      # serving-deployment, serving-service, hpa,
 │                      # secret.example.yaml
 ├── requirements/      # train.txt, serve.txt (pinned)
-└── tests/             # test_model.py
+└── tests/             # test\_model.py
 ```
 
 ## Local setup
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv \&\& source .venv/bin/activate
 pip install -r requirements/train.txt
 pip install pytest ruff
 pytest tests/ -v
@@ -70,19 +76,19 @@ pytest tests/ -v
 ```bash
 # Training
 docker build -f docker/Dockerfile.train -t mlops-train:v1 .
-docker run --rm \
-  -v $(pwd)/data:/app/data \
-  -v $(pwd)/checkpoints:/app/checkpoints \
+docker run --rm \\
+  -v $(pwd)/data:/app/data \\
+  -v $(pwd)/checkpoints:/app/checkpoints \\
   mlops-train:v1
 
 # Serving
 docker build -f docker/Dockerfile.serve -t mlops-serve:v1 .
-docker run --rm -p 8080:8080 \
-  -v $(pwd)/checkpoints:/app/checkpoints \
+docker run --rm -p 8080:8080 \\
+  -v $(pwd)/checkpoints:/app/checkpoints \\
   mlops-serve:v1
 
 # Test the endpoint
-curl -X POST http://localhost:8080/predict -F "image=@test_image.png"
+curl -X POST http://localhost:8080/predict -F "image=@test\_image.png"
 curl http://localhost:8080/health
 ```
 
@@ -113,7 +119,7 @@ kubectl get pods -n ml-training
 kubectl describe deployment model-serving -n ml-training
 
 kubectl port-forward svc/model-serving 8080:80 -n ml-training
-curl -X POST http://localhost:8080/predict -F "image=@test_image.png"
+curl -X POST http://localhost:8080/predict -F "image=@test\_image.png"
 ```
 
 Secrets (e.g. a model-registry token) are never committed as plaintext —
@@ -127,25 +133,26 @@ This repo follows trunk-based feature branching:
 1. `main` — protected, always deployable.
 2. `develop` — integration branch, created from `main`.
 3. Feature branches off `develop`: `feature/docker-training`,
-   `feature/k8s-deployment`, `feature/serving-api`, `feature/ci-pipeline`, etc.
+`feature/k8s-deployment`, `feature/serving-api`, `feature/ci-pipeline`, etc.
 4. Every feature branch is merged back via a Pull Request with a description
-   covering what changed and why, plus verification output/screenshots.
+covering what changed and why, plus verification output/screenshots.
 5. Commits follow [Conventional Commits](https://www.conventionalcommits.org/)
-   (`feat:`, `fix:`, `docs:`, `chore:`, `test:`).
+(`feat:`, `fix:`, `docs:`, `chore:`, `test:`).
 6. Target: 2 merged PRs in Week 1 (repo scaffolding, model + Docker), 2 more
-   in Week 2 (Kubernetes manifests + end-to-end validation) — 4+ total.
+in Week 2 (Kubernetes manifests + end-to-end validation) — 4+ total.
 
 Suggested PR breakdown:
 
-| PR | Branch | Contents |
-|----|--------|----------|
-| 1 | `feature/repo-scaffolding` | Directory structure, `.gitignore`, README skeleton, CI workflow |
-| 2 | `feature/pytorch-model` | `model.py`, `dataset.py`, `train.py`, `serve.py`, `tests/test_model.py` |
-| 3 | `feature/docker-training` + `feature/docker-serving` | Both Dockerfiles, local `docker run` verification screenshots |
-| 4 | `feature/k8s-deployment` | All `k8s/*.yaml`, end-to-end cluster verification screenshots |
+|PR|Branch|Contents|
+|-|-|-|
+|1|`feature/repo-scaffolding`|Directory structure, `.gitignore`, README skeleton, CI workflow|
+|2|`feature/pytorch-model`|`model.py`, `dataset.py`, `train.py`, `serve.py`, `tests/test\_model.py`|
+|3|`feature/docker-training` + `feature/docker-serving`|Both Dockerfiles, local `docker run` verification screenshots|
+|4|`feature/k8s-deployment`|All `k8s/\*.yaml`, end-to-end cluster verification screenshots|
 
 ## Configuration
 
-All hyperparameters live in `configs/training_config.yaml` and are mounted
+All hyperparameters live in `configs/training\_config.yaml` and are mounted
 into the training Job via the `training-config` ConfigMap — nothing is
 hardcoded in `train.py`.
+
