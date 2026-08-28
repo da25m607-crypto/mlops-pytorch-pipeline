@@ -19,10 +19,10 @@ spec:
           env:
             - name: TRAINING_CONFIG
               value: /app/configs/training_config.yaml
-            - name: OMP_NUM_THREADS 
-              value: "2"
-            - name: MKL_NUM_THREADS 
-              value: "2"
+            - name: OMP_NUM_THREADS
+              value: "1"
+            - name: MKL_NUM_THREADS
+              value: "1"
           volumeMounts:
             - name: config-volume
               mountPath: /app/configs
@@ -32,10 +32,9 @@ spec:
               mountPath: /app/checkpoints
           resources:
             requests:
-              cpu: "1500m"
+              cpu: "1"
               memory: "4Gi"
             limits:
-              cpu: "1500m"
               memory: "4Gi"
           # --- Bonus (5 pts): GPU scheduling ---
           # Uncomment to request a GPU and pin the pod to a GPU-labeled node.
