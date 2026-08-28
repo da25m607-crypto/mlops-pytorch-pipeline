@@ -1,0 +1,3 @@
+﻿NAME             STATUS     COMPLETIONS   DURATION   AGE
+model-training   Complete   1/1           161m       3h26m
+
